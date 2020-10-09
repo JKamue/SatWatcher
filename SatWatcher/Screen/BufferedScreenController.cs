@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SatWatcher.Satellites;
 
 namespace SatWatcher.Screen
 {
@@ -12,24 +13,23 @@ namespace SatWatcher.Screen
     {
         private readonly Panel _panel;
         private readonly Timer _timer;
-        private readonly Color _color;
 
         private BufferedGraphicsContext _context;
         private BufferedGraphics _graphicsBuffer;
         private Graphics _panelGraphics;
 
-        public readonly List<IScreenObject> _panelObjects = new List<IScreenObject>();
+        public readonly SatellitesController _satellites;
 
-        public BufferedScreenController(Panel panel, Color color)
+        public BufferedScreenController(Panel panel, SatellitesController satellitesController)
         {
             _panel = panel;
-            _color = color;
+            _satellites = satellitesController;
 
             SetupGraphics();
 
             // Setup Timer
             _timer = new Timer();
-            _timer.Interval = 1000 / 60;
+            _timer.Interval = 1000;
             _timer.Tick += Redraw;
             _timer.Start();
 
@@ -38,25 +38,22 @@ namespace SatWatcher.Screen
 
         public void PanelResizeEvent(object sender, EventArgs e) => SetupGraphics();
 
-        public void SetupGraphics()
+        private void RedrawNow() => Redraw(this, EventArgs.Empty);
+
+        private void SetupGraphics()
         {
             _context = BufferedGraphicsManager.Current;
             _panelGraphics = _panel.CreateGraphics();
             _graphicsBuffer = _context.Allocate(_panelGraphics, _panel.DisplayRectangle);
+            RedrawNow();
         }
 
-        public void Redraw(object sender, EventArgs e)
+        private void Redraw(object sender, EventArgs e)
         {
-            _graphicsBuffer.Graphics.Clear(_color);
-            _panelObjects.ForEach(x => DrawObject(x, _panel.Bounds));
+            var graphics = _graphicsBuffer.Graphics;
+            graphics.Clear(Color.White);
+            graphics.DrawImage(Properties.Resources.world,0,0, _panel.Width+1, _panel.Height+1);
             _graphicsBuffer.Render(_panelGraphics);
-        }
-
-        private void DrawObject(IScreenObject o, Rectangle panelBounds)
-        {
-            if (!panelBounds.IntersectsWith(o.GetBounds())) return;
-
-            o.Draw(_graphicsBuffer.Graphics);
         }
     }
 }

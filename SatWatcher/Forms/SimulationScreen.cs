@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SatWatcher.Screen;
 
 namespace SatWatcher.Forms
 {
     public partial class SimulationScreen : Form
     {
+        private BufferedScreenController Controller;
+
         public SimulationScreen()
         {
             InitializeComponent();
+            Controller = new BufferedScreenController(pnlSimulation);
         }
     }
 }
