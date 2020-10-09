@@ -83,6 +83,9 @@
     <Compile Include="Satellites\Satellite.cs" />
     <Compile Include="Satellites\SatellitesController.cs" />
     <Compile Include="Screen\BufferedScreenController.cs" />
+    <EmbeddedResource Include="Forms\SimulationScreen.resx">
+      <DependentUpon>SimulationScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
