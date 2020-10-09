@@ -9,7 +9,7 @@ using SatWatcher.Screen;
 
 namespace SatWatcher.Satellites
 {
-    public class Satellite : IScreenObject
+    public class Satellite
     {
         public readonly int ID;
         public readonly string Name;
@@ -29,7 +29,12 @@ namespace SatWatcher.Satellites
                 name);
         }
 
-        public void Draw(Graphics g)
+        public void DrawLocation(Graphics g)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawLine(Graphics g)
         {
             throw new NotImplementedException();
         }

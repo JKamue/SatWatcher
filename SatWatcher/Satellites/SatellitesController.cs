@@ -13,15 +13,30 @@ namespace SatWatcher.Satellites
 
         public event EventHandler SelectionChanged;
 
+        public Satellite MainSatellite { get; private set; }
+
         public void SelectSatellite(Satellite sat)
         {
+            if (_selectedSatellites.Any(s => s.ID == sat.ID))
+                return;
+
             _selectedSatellites.Add(sat);
+            OnSelectionChanged(EventArgs.Empty);
+        }
+
+        public void FocusSatellite(Satellite sat)
+        {
+            MainSatellite = sat;
+            SelectSatellite(sat);
             OnSelectionChanged(EventArgs.Empty);
         }
 
         public void RemoveSatellite(Satellite sat)
         {
             _selectedSatellites.RemoveAll(s => s.ID == sat.ID);
+            if (MainSatellite.ID == sat.ID)
+                MainSatellite = null;
+
             OnSelectionChanged(EventArgs.Empty);
         }
 

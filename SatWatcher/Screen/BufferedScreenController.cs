@@ -54,6 +54,14 @@ namespace SatWatcher.Screen
             var graphics = _graphicsBuffer.Graphics;
             graphics.Clear(Color.White);
             graphics.DrawImage(Properties.Resources.world,0,0, _panel.Width+1, _panel.Height+1);
+            
+            foreach (var satellite in _satellites.SelectedSatellites)
+                satellite.DrawLocation(graphics);
+
+            if (_satellites.MainSatellite != null)
+                _satellites.MainSatellite.DrawLine(graphics);
+
+
             _graphicsBuffer.Render(_panelGraphics);
         }
     }
