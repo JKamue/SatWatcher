@@ -28,31 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlSimulation = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.selectSatellitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.predictPassesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlSimulation.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // pnlSimulation
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 450);
-            this.panel1.TabIndex = 0;
+            this.pnlSimulation.Controls.Add(this.menuStrip1);
+            this.pnlSimulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSimulation.Location = new System.Drawing.Point(0, 0);
+            this.pnlSimulation.Name = "pnlSimulation";
+            this.pnlSimulation.Size = new System.Drawing.Size(800, 450);
+            this.pnlSimulation.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectSatellitesToolStripMenuItem,
+            this.predictPassesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // selectSatellitesToolStripMenuItem
+            // 
+            this.selectSatellitesToolStripMenuItem.Name = "selectSatellitesToolStripMenuItem";
+            this.selectSatellitesToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.selectSatellitesToolStripMenuItem.Text = "Select Satellites";
+            // 
+            // predictPassesToolStripMenuItem
+            // 
+            this.predictPassesToolStripMenuItem.Name = "predictPassesToolStripMenuItem";
+            this.predictPassesToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.predictPassesToolStripMenuItem.Text = "Predict Passes";
             // 
             // SimulationScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlSimulation);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "SimulationScreen";
             this.Text = "SimulationScreen";
+            this.pnlSimulation.ResumeLayout(false);
+            this.pnlSimulation.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlSimulation;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem selectSatellitesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem predictPassesToolStripMenuItem;
     }
 }
