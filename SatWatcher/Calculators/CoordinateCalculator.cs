@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SatWatcher.Calculators
 {
-    class CoordinateCalculator
+    public class CoordinateCalculator
     {
         private readonly Size _size;
 
