@@ -83,6 +83,7 @@
     <Compile Include="Satellites\Satellite.cs" />
     <Compile Include="Satellites\SatellitesController.cs" />
     <Compile Include="Screen\BufferedScreenController.cs" />
+    <Compile Include="Screen\IScreenObject.cs" />
     <EmbeddedResource Include="Forms\SimulationScreen.resx">
       <DependentUpon>SimulationScreen.cs</DependentUpon>
     </EmbeddedResource>
