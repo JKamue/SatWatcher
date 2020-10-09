@@ -63,6 +63,16 @@ namespace SatWatcher.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap satellite {
+            get {
+                object obj = ResourceManager.GetObject("satellite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap world {
             get {
                 object obj = ResourceManager.GetObject("world", resourceCulture);

@@ -37,8 +37,9 @@ namespace SatWatcher.Satellites
             var mappedPoint = cCalc.MapPoint(new PointF((float)point.getLongitude(), (float)point.getLatitude()));
             mappedPoint = new PointF((float)Math.Round(mappedPoint.X), (float)Math.Round(mappedPoint.Y));
 
+            g.DrawImage(Properties.Resources.satellite, mappedPoint.X-25, mappedPoint.Y-25, 50, 50);
             var font = new Font("Times New Roman", 18, FontStyle.Bold, GraphicsUnit.Pixel);
-            g.DrawString(Name, font, new SolidBrush(Color.OrangeRed), mappedPoint);
+            g.DrawString(Name, font, new SolidBrush(Color.OrangeRed), mappedPoint.X, mappedPoint.Y + 15);
         }
 
         private List<Sgp4Data> CalculatePositionList(int start, int end)

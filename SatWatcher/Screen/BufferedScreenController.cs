@@ -57,12 +57,11 @@ namespace SatWatcher.Screen
             graphics.DrawImage(Properties.Resources.world,0,0, _panel.Width+1, _panel.Height+1);
             var corCalc = new CoordinateCalculator(_panel.Size);
 
-            foreach (var satellite in _satellites.SelectedSatellites)
-                satellite.DrawLocation(graphics, corCalc);
-
             if (_satellites.MainSatellite != null)
                 _satellites.MainSatellite.DrawLine(graphics, corCalc);
 
+            foreach (var satellite in _satellites.SelectedSatellites)
+                satellite.DrawLocation(graphics, corCalc);
 
             _graphicsBuffer.Render(_panelGraphics);
         }
