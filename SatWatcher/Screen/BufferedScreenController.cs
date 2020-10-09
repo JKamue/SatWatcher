@@ -34,6 +34,7 @@ namespace SatWatcher.Screen
             _timer.Start();
 
             _panel.SizeChanged += PanelResizeEvent;
+            _satellites.SelectionChanged += Redraw;
         }
 
         public void PanelResizeEvent(object sender, EventArgs e) => SetupGraphics();
