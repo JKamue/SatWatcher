@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SatWatcher.Calculators;
 using SatWatcher.Satellites;
 
 namespace SatWatcher.Screen
@@ -54,12 +55,13 @@ namespace SatWatcher.Screen
             var graphics = _graphicsBuffer.Graphics;
             graphics.Clear(Color.White);
             graphics.DrawImage(Properties.Resources.world,0,0, _panel.Width+1, _panel.Height+1);
-            
+            var corCalc = new CoordinateCalculator(_panel.Size);
+
             foreach (var satellite in _satellites.SelectedSatellites)
-                satellite.DrawLocation(graphics);
+                satellite.DrawLocation(graphics, corCalc);
 
             if (_satellites.MainSatellite != null)
-                _satellites.MainSatellite.DrawLine(graphics);
+                _satellites.MainSatellite.DrawLine(graphics, corCalc);
 
 
             _graphicsBuffer.Render(_panelGraphics);
