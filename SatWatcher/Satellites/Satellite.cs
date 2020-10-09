@@ -13,22 +13,20 @@ namespace SatWatcher.Satellites
     {
         public readonly int ID;
         public readonly string Name;
-        public readonly string[] _tle;
         public readonly string Type;
         public readonly string Frequency;
         public readonly Tle Tle;
 
-        public Satellite(int id, string name, string[] tle, string type, string frequency)
+        public Satellite(int id, string name, string tleLine1, string tleLine2, string type, string frequency)
         {
             ID = id;
             Name = name;
-            _tle = tle;
             Type = type;
             Frequency = frequency;
             Tle = ParserTLE.parseTle(
-                _tle[1],
-                _tle[2],
-                _tle[0]);
+                tleLine1,
+                tleLine2,
+                name);
         }
 
         public void Draw(Graphics g)
