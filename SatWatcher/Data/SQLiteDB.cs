@@ -55,5 +55,10 @@ namespace SatWatcher.Data
         {
             _dbConnection.Execute("DELETE FROM satellites WHERE id = @id", new { id = sat.ID });
         }
+
+        public void UpdateTle(TleLines tle)
+        {
+            _dbConnection.Execute("UPDATE satellites SET line1 = @line1, line2 = @line2 WHERE id = @id", new { id = tle.Id, line1 = tle.Line1, line2 = tle.Line2 });
+        }
     }
 }
