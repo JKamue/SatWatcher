@@ -13,9 +13,9 @@ namespace SatWatcher.Data
 {
     class TLEApi
     {
-        public static TleLines GetCurrentTleData(Satellite sat)
+        public static Satellite GetSatellite(long id)
         {
-            string url = "https://data.ivanstanojevic.me/api/tle?search=" + sat.ID;
+            string url = "https://data.ivanstanojevic.me/api/tle?search=" + id;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
 
@@ -29,10 +29,21 @@ namespace SatWatcher.Data
 
 
             var results = tleResponse["member"]?.Children().ToList().First();
-            return new TleLines(
+            return new Satellite(
                 GetValue<long>(results, "satelliteId"),
+                GetValue<string>(results, "name"),
                 GetValue<string>(results, "line1"),
                 GetValue<string>(results, "line2")
+            );
+        }
+
+        public static TleLines GetCurrentTleData(Satellite sat)
+        {
+            var satellite = GetSatellite(sat.ID);
+            return new TleLines(
+                satellite.ID,
+                satellite.TleLine1,
+                satellite.TleLine2
             );
         }
 
@@ -44,8 +55,6 @@ namespace SatWatcher.Data
             return (T)ret;
         }
     }
-
-
 
     struct TleLines
     {

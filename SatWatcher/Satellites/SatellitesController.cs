@@ -34,10 +34,18 @@ namespace SatWatcher.Satellites
         public void RemoveSatellite(Satellite sat)
         {
             _selectedSatellites.RemoveAll(s => s.ID == sat.ID);
+            OnSelectionChanged(EventArgs.Empty);
+
+            if (MainSatellite == null)
+                return;
+
             if (MainSatellite.ID == sat.ID)
+            {
                 MainSatellite = null;
 
-            OnSelectionChanged(EventArgs.Empty);
+                if (SelectedSatellites.Count > 0)
+                    MainSatellite = SelectedSatellites[0];
+            }
         }
 
         public IImmutableList<Satellite> SelectedSatellites => _selectedSatellites.ToImmutableList();

@@ -17,6 +17,8 @@ namespace SatWatcher.Forms
     {
         private BufferedScreenController Controller;
 
+        private SatChooser SatChooser;
+
         public SimulationScreen()
         {
             InitializeComponent();
@@ -36,6 +38,12 @@ namespace SatWatcher.Forms
             satController.FocusSatellite(sats[0]);
 
             Controller = new BufferedScreenController(pnlSimulation, satController);
+            SatChooser = new SatChooser(satController, database);
+        }
+
+        private void selectSatellitesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SatChooser.Show();
         }
     }
 }
