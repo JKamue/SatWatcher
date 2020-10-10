@@ -87,6 +87,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 
         }
 
