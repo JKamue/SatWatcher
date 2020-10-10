@@ -12,21 +12,21 @@ namespace SatWatcher.Satellites
 {
     public class Satellite
     {
-        public readonly int ID;
+        public readonly long ID;
         public readonly string Name;
-        public readonly string Type;
-        public readonly string Frequency;
         public readonly Tle Tle;
+        public readonly string TleLine1;
+        public readonly string TleLine2;
 
-        public Satellite(int id, string name, string tleLine1, string tleLine2, string type, string frequency)
+        public Satellite(long id, string name, string line1, string line2)
         {
             ID = id;
             Name = name;
-            Type = type;
-            Frequency = frequency;
+            TleLine1 = line1;
+            TleLine2 = line2;
             Tle = ParserTLE.parseTle(
-                tleLine1,
-                tleLine2,
+                line1,
+                line2,
                 name);
         }
 

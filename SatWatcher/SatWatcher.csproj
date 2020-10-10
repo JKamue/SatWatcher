@@ -73,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\CoordinateCalculator.cs" />
-    <Compile Include="Data\SQLiteDB.cs" />
+    <Compile Include="Data\SqLiteDb.cs" />
     <Compile Include="Data\TLEApi.cs" />
     <Compile Include="Forms\SimulationScreen.cs">
       <SubType>Form</SubType>
