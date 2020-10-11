@@ -41,7 +41,7 @@
             this.pnlSimulation.Controls.Add(this.menuStrip1);
             this.pnlSimulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSimulation.Location = new System.Drawing.Point(0, 0);
-            this.pnlSimulation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlSimulation.Margin = new System.Windows.Forms.Padding(4);
             this.pnlSimulation.Name = "pnlSimulation";
             this.pnlSimulation.Size = new System.Drawing.Size(1067, 554);
             this.pnlSimulation.TabIndex = 0;
@@ -71,6 +71,7 @@
             this.predictPassesToolStripMenuItem.Name = "predictPassesToolStripMenuItem";
             this.predictPassesToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.predictPassesToolStripMenuItem.Text = "Predict Passes";
+            this.predictPassesToolStripMenuItem.Click += new System.EventHandler(this.predictPassesToolStripMenuItem_Click);
             // 
             // SimulationScreen
             // 
@@ -79,15 +80,15 @@
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.pnlSimulation);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SimulationScreen";
             this.Text = "SimulationScreen";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnlSimulation.ResumeLayout(false);
             this.pnlSimulation.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 
         }
 

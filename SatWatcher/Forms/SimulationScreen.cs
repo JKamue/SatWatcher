@@ -18,6 +18,7 @@ namespace SatWatcher.Forms
         private BufferedScreenController Controller;
 
         private SatChooser SatChooser;
+        private PassCalculator PassCalculator;
 
         public SimulationScreen()
         {
@@ -33,11 +34,17 @@ namespace SatWatcher.Forms
 
             Controller = new BufferedScreenController(pnlSimulation, satController, database);
             SatChooser = new SatChooser(satController, database);
+            PassCalculator = new PassCalculator(satController, database);
         }
 
         private void selectSatellitesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SatChooser.Show();
+        }
+
+        private void predictPassesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PassCalculator.Show();
         }
     }
 }

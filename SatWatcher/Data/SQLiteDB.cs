@@ -72,25 +72,23 @@ namespace SatWatcher.Data
 
         public Location GetPosition()
         {
-            return _dbConnection.Query<Location>("SELECT * FROM location").ToList().First();
+           return _dbConnection.Query<Location>("SELECT lat, lng FROM location").ToList().First();
         }
 
         public void SetLocation(Location loc)
         {
-            _dbConnection.Execute("UPDATE location SET lat = @lat, lng = @lng",
-                new { lat = loc.lat, lng = loc.lng });
+            _dbConnection.Execute("UPDATE location SET lat = @lat, lng = @lng WHERE 1 = 1",
+                new {lat = loc.lat, lng = loc.lng });
         }
 
         public struct Location
         {
             public long lat;
             public long lng;
-            public PointF point;
             public Location(long lat, long lng)
             {
                 this.lat = lat;
                 this.lng = lng;
-                point = new PointF(lat, lng);
             }
         }
     }
