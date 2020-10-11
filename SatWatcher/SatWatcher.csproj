@@ -78,6 +78,12 @@
     <Compile Include="Calculators\CoordinateCalculator.cs" />
     <Compile Include="Data\SqLiteDb.cs" />
     <Compile Include="Data\TLEApi.cs" />
+    <Compile Include="Forms\PassCalculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PassCalculator.Designer.cs">
+      <DependentUpon>PassCalculator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SatChooser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     <Compile Include="Satellites\Satellite.cs" />
     <Compile Include="Satellites\SatellitesController.cs" />
     <Compile Include="Screen\BufferedScreenController.cs" />
+    <EmbeddedResource Include="Forms\PassCalculator.resx">
+      <DependentUpon>PassCalculator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SatChooser.resx">
       <DependentUpon>SatChooser.cs</DependentUpon>
     </EmbeddedResource>
