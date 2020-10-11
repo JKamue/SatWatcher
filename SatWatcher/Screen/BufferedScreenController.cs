@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SatWatcher.Calculators;
+using SatWatcher.Data;
 using SatWatcher.Satellites;
 
 namespace SatWatcher.Screen
@@ -14,6 +15,7 @@ namespace SatWatcher.Screen
     {
         private readonly Panel _panel;
         private readonly Timer _timer;
+        private readonly SqLiteDb _db;
 
         private BufferedGraphicsContext _context;
         private BufferedGraphics _graphicsBuffer;
@@ -21,10 +23,11 @@ namespace SatWatcher.Screen
 
         public readonly SatellitesController _satellites;
 
-        public BufferedScreenController(Panel panel, SatellitesController satellitesController)
+        public BufferedScreenController(Panel panel, SatellitesController satellitesController, SqLiteDb db)
         {
             _panel = panel;
             _satellites = satellitesController;
+            _db = db;
 
             SetupGraphics();
 
@@ -57,6 +60,8 @@ namespace SatWatcher.Screen
             graphics.DrawImage(Properties.Resources.world,0,0, _panel.Width+1, _panel.Height+1);
             var corCalc = new CoordinateCalculator(_panel.Size);
 
+            DrawPosition(corCalc, graphics);
+
             if (_satellites.MainSatellite != null)
                 _satellites.MainSatellite.DrawLine(graphics, corCalc);
 
@@ -64,6 +69,14 @@ namespace SatWatcher.Screen
                 satellite.DrawLocation(graphics, corCalc);
 
             _graphicsBuffer.Render(_panelGraphics);
+        }
+
+        private void DrawPosition(CoordinateCalculator corCalc, Graphics g)
+        {
+            var projectd = corCalc.MapPoint(_db.GetPosition().point);
+
+            g.DrawLine(new Pen(Color.Red), projectd.X - 5, projectd.Y, projectd.X + 5, projectd.Y);
+            g.DrawLine(new Pen(Color.Red), projectd.X, projectd.Y - 5, projectd.X, projectd.Y + 5);
         }
     }
 }

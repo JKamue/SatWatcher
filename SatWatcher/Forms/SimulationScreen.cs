@@ -31,13 +31,7 @@ namespace SatWatcher.Forms
                 database.UpdateTle(newTles);
             }
 
-            var sats = database.GetAllSatellites();
-            foreach (var sat in sats)
-                satController.SelectSatellite(sat);
-
-            satController.FocusSatellite(sats[0]);
-
-            Controller = new BufferedScreenController(pnlSimulation, satController);
+            Controller = new BufferedScreenController(pnlSimulation, satController, database);
             SatChooser = new SatChooser(satController, database);
         }
 

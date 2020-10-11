@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
@@ -36,6 +38,11 @@ namespace SatWatcher.Data
             tmpConnection.Execute(
                 "CREATE TABLE \"satellites\" (\r\n\t\"id\"\tINTEGER NOT NULL UNIQUE,\r\n\t\"name\"\tTEXT NOT NULL,\r\n\t\"line1\"\tTEXT NOT NULL,\r\n\t\"line2\"\tTEXT NOT NULL,\r\n\tPRIMARY KEY(\"id\")\r\n);");
 
+            tmpConnection.Execute(
+                "CREATE TABLE \"location\" (\r\n\t\"lat\"\tINTEGER NOT NULL,\r\n\t\"lng\"\tINTEGER NOT NULL,\r\n\tPRIMARY KEY(\"lat\")\r\n);");
+
+            tmpConnection.Execute("INSERT INTO location (lat, lng) VALUES (0,0)");
+
             tmpConnection.Close();
         }
 
@@ -48,7 +55,8 @@ namespace SatWatcher.Data
 
         public void AddSatellite(Satellite sat)
         {
-            _dbConnection.Execute("INSERT INTO satellites (id, name, line1, line2) Values (@id, @name, @line1, @line2)", new { id = sat.ID, name = sat.Name, line1 = sat.TleLine1, line2 = sat.TleLine2 });
+            _dbConnection.Execute("INSERT INTO satellites (id, name, line1, line2) Values (@id, @name, @line1, @line2)",
+                new {id = sat.ID, name = sat.Name, line1 = sat.TleLine1, line2 = sat.TleLine2});
         }
 
         public void RemoveSatellite(Satellite sat)
@@ -58,7 +66,32 @@ namespace SatWatcher.Data
 
         public void UpdateTle(TleLines tle)
         {
-            _dbConnection.Execute("UPDATE satellites SET line1 = @line1, line2 = @line2 WHERE id = @id", new { id = tle.Id, line1 = tle.Line1, line2 = tle.Line2 });
+            _dbConnection.Execute("UPDATE satellites SET line1 = @line1, line2 = @line2 WHERE id = @id",
+                new {id = tle.Id, line1 = tle.Line1, line2 = tle.Line2});
+        }
+
+        public Location GetPosition()
+        {
+            return _dbConnection.Query<Location>("SELECT * FROM location").ToList().First();
+        }
+
+        public void SetLocation(Location loc)
+        {
+            _dbConnection.Execute("UPDATE location SET lat = @lat, lng = @lng",
+                new { lat = loc.lat, lng = loc.lng });
+        }
+
+        public struct Location
+        {
+            public long lat;
+            public long lng;
+            public PointF point;
+            public Location(long lat, long lng)
+            {
+                this.lat = lat;
+                this.lng = lng;
+                point = new PointF(lat, lng);
+            }
         }
     }
 }
