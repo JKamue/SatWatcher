@@ -40,11 +40,13 @@ namespace SatWatcher.Forms
         private void selectSatellitesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SatChooser.Show();
+            SatChooser.BringToFront();
         }
 
         private void predictPassesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PassCalculator.Show();
+            PassCalculator.BringToFront();
         }
     }
 }
