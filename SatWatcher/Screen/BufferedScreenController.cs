@@ -60,6 +60,7 @@ namespace SatWatcher.Screen
             graphics.DrawImage(Properties.Resources.world,0,0, _panel.Width+1, _panel.Height+1);
             var corCalc = new CoordinateCalculator(_panel.Size);
 
+            DrawGrid(corCalc, graphics);
             DrawPosition(corCalc, graphics);
 
             if (_satellites.MainSatellite != null)
@@ -78,6 +79,34 @@ namespace SatWatcher.Screen
 
             g.DrawLine(new Pen(Color.Red), projectd.X - 5, projectd.Y, projectd.X + 5, projectd.Y);
             g.DrawLine(new Pen(Color.Red), projectd.X, projectd.Y - 5, projectd.X, projectd.Y + 5);
+        }
+
+        private void DrawGrid(CoordinateCalculator corCalc, Graphics g)
+        {
+            var fontSize = (float)Math.Round(0.013888888888889 * _panel.Width + 5);
+            var font = new Font("Times New Roman", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
+            for (var i = 60; i >= -60; i -= 30)
+            {
+                var start = corCalc.MapPoint(new PointF(-180, i));
+                var end = corCalc.MapPoint(new PointF(180, i));
+
+                var width = (i == 0) ? 2 : 1;
+
+                g.DrawString($"{i}°", font, new SolidBrush(Color.White), start);
+                g.DrawLine(new Pen(Color.LightGray, width), start, end);
+            }
+
+            for (var i = -180; i <= 180; i += 30)
+            {
+                var start = corCalc.MapPoint(new PointF(i, 90));
+                var end = corCalc.MapPoint(new PointF(i, -90));
+
+
+                var width = (i == 0) ? 2 : 1;
+
+                g.DrawString($"{i}°", font, new SolidBrush(Color.White), new PointF(start.X, start.Y + 20));
+                g.DrawLine(new Pen(Color.LightGray, width), start, end);
+            }
         }
     }
 }
