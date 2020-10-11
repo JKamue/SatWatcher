@@ -60,14 +60,14 @@
             this.groupBox1.Controls.Add(this.nbxLocLat);
             this.groupBox1.Location = new System.Drawing.Point(12, 444);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(385, 100);
+            this.groupBox1.Size = new System.Drawing.Size(420, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
             // 
             // btnStoreLocation
             // 
-            this.btnStoreLocation.Location = new System.Drawing.Point(274, 36);
+            this.btnStoreLocation.Location = new System.Drawing.Point(296, 42);
             this.btnStoreLocation.Name = "btnStoreLocation";
             this.btnStoreLocation.Size = new System.Drawing.Size(75, 35);
             this.btnStoreLocation.TabIndex = 4;
@@ -78,7 +78,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 59);
+            this.label5.Location = new System.Drawing.Point(63, 65);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 17);
             this.label5.TabIndex = 3;
@@ -87,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(53, 34);
+            this.label4.Location = new System.Drawing.Point(75, 40);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 17);
             this.label4.TabIndex = 2;
@@ -96,7 +96,7 @@
             // nbxLocLng
             // 
             this.nbxLocLng.DecimalPlaces = 6;
-            this.nbxLocLng.Location = new System.Drawing.Point(122, 57);
+            this.nbxLocLng.Location = new System.Drawing.Point(144, 63);
             this.nbxLocLng.Maximum = new decimal(new int[] {
             180,
             0,
@@ -114,7 +114,7 @@
             // nbxLocLat
             // 
             this.nbxLocLat.DecimalPlaces = 6;
-            this.nbxLocLat.Location = new System.Drawing.Point(122, 29);
+            this.nbxLocLat.Location = new System.Drawing.Point(144, 35);
             this.nbxLocLat.Maximum = new decimal(new int[] {
             90,
             0,
@@ -140,14 +140,14 @@
             this.groupBox2.Controls.Add(this.dtpStart);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(385, 130);
+            this.groupBox2.Size = new System.Drawing.Size(420, 130);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Timespan";
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(257, 74);
+            this.btnCalc.Location = new System.Drawing.Point(285, 73);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(75, 31);
             this.btnCalc.TabIndex = 6;
@@ -157,22 +157,47 @@
             // 
             // nbxMinElev
             // 
-            this.nbxMinElev.Location = new System.Drawing.Point(104, 86);
+            this.nbxMinElev.Location = new System.Drawing.Point(132, 85);
+            this.nbxMinElev.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
             this.nbxMinElev.Name = "nbxMinElev";
             this.nbxMinElev.Size = new System.Drawing.Size(61, 22);
             this.nbxMinElev.TabIndex = 5;
+            this.nbxMinElev.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
             // 
             // nbxSpanDays
             // 
-            this.nbxSpanDays.Location = new System.Drawing.Point(104, 59);
+            this.nbxSpanDays.Location = new System.Drawing.Point(132, 58);
+            this.nbxSpanDays.Maximum = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            this.nbxSpanDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nbxSpanDays.Name = "nbxSpanDays";
             this.nbxSpanDays.Size = new System.Drawing.Size(61, 22);
             this.nbxSpanDays.TabIndex = 2;
+            this.nbxSpanDays.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 88);
+            this.label3.Location = new System.Drawing.Point(59, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 17);
             this.label3.TabIndex = 4;
@@ -181,7 +206,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(53, 61);
+            this.label2.Location = new System.Drawing.Point(81, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 17);
             this.label2.TabIndex = 3;
@@ -190,7 +215,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 34);
+            this.label1.Location = new System.Drawing.Point(86, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 17);
             this.label1.TabIndex = 2;
@@ -198,7 +223,7 @@
             // 
             // dtpStart
             // 
-            this.dtpStart.Location = new System.Drawing.Point(104, 29);
+            this.dtpStart.Location = new System.Drawing.Point(132, 28);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.Size = new System.Drawing.Size(228, 22);
             this.dtpStart.TabIndex = 1;
@@ -208,7 +233,7 @@
             this.lviewPasses.HideSelection = false;
             this.lviewPasses.Location = new System.Drawing.Point(12, 148);
             this.lviewPasses.Name = "lviewPasses";
-            this.lviewPasses.Size = new System.Drawing.Size(385, 290);
+            this.lviewPasses.Size = new System.Drawing.Size(420, 290);
             this.lviewPasses.TabIndex = 2;
             this.lviewPasses.UseCompatibleStateImageBehavior = false;
             // 
@@ -216,7 +241,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 559);
+            this.ClientSize = new System.Drawing.Size(444, 559);
             this.Controls.Add(this.lviewPasses);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
