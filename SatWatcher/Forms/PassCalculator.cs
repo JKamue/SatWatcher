@@ -24,6 +24,10 @@ namespace SatWatcher.Forms
 
             InitializeComponent();
             FormClosing += PassCalcHider;
+
+            var location = _db.GetPosition();
+            nbxLocLat.Value = location.lat;
+            nbxLocLng.Value = location.lng;
         }
 
         private void PassCalcHider(object sender, FormClosingEventArgs e)
