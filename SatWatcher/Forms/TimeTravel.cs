@@ -17,15 +17,21 @@ namespace SatWatcher.Forms
         public TimeTravel()
         {
             InitializeComponent();
+            FormClosing += TimeTravelHider;
+
             cbxNumber.SelectedIndex = 2;
             cbxTime.SelectedIndex = 1;
+
             dtpCurrentTime.Value = TimeKeeper.Now();
+
             TimeKeeper.OnTimespanChanged += UpdateTime;
             TimeKeeper.OnRealTimeSet += ProhibitInput;
             TimeKeeper.OnVirtualTimeSet += AllowInput;
+
             dtpCurrentTime.ValueChanged += UpdateTimeKeeper;
             rdbRealtime.Click += OnRdbRealtimeClick;
             rdbSimulation.Click += OnRdbSimulationClick;
+
             rdbRealtime.Checked = true;
 
             SetInputStatus(false);
@@ -34,6 +40,12 @@ namespace SatWatcher.Forms
             updateTimer.Tick += UpdateTime;
             updateTimer.Interval = 500;
             updateTimer.Start();
+        }
+
+        private void TimeTravelHider(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
 
         public void UpdateTime(object s, EventArgs e) => dtpCurrentTime.Value = TimeKeeper.Now();
