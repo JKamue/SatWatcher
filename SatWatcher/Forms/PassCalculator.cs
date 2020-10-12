@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using One_Sgp4;
+using SatWatcher.Calculators;
 using SatWatcher.Data;
 using SatWatcher.Satellites;
 
@@ -39,6 +40,8 @@ namespace SatWatcher.Forms
             lviewPasses.Columns.Add("Name", 60);
             lviewPasses.Columns.Add("Duration", 55);
             lviewPasses.Columns.Add("Elevation", 60);
+
+            lviewPasses.Click += PassSelected;
         }
 
         private void PassCalcHider(object sender, FormClosingEventArgs e)
@@ -69,7 +72,7 @@ namespace SatWatcher.Forms
             foreach (var pass in satPasses)
             {
                 string[] arr = new string[4];
-                arr[0] = pass.Pass.getPassDetailOfMaxElevation().time.ToString();
+                arr[0] = pass.Pass.getPassDetailOfMaxElevation().time.toDateTime().ToLocalTime().ToString();
                 arr[1] = pass.Name;
                 arr[2] = (pass.Pass.getPassDetailsAtEnd().time.toDateTime() - pass.Pass.getPassDetailsAtStart().time.toDateTime()).ToString();
                 arr[3] = Math.Round(pass.Pass.getPassDetailOfMaxElevation().elevation, 2).ToString();
@@ -77,6 +80,15 @@ namespace SatWatcher.Forms
                 var itm = new ListViewItem(arr);
                 lviewPasses.Items.Add(itm);
             }
+        }
+
+        private void PassSelected(object sender, EventArgs e)
+        {
+            if (lviewPasses.SelectedItems.Count == 0)
+                return;
+
+            var time = DateTime.ParseExact(lviewPasses.SelectedItems[0].Text,"dd.MM.yyyy HH:mm:ss", null);
+            TimeKeeper.SetTime(time);
         }
 
         private void btnStoreLocation_Click(object sender, EventArgs e)

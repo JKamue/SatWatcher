@@ -50,14 +50,16 @@ namespace SatWatcher.Forms
         public void AllowInput(object s, EventArgs e) => SetInputStatus(true);
         public void ProhibitInput(object s, EventArgs e) => SetInputStatus(false);
 
-        public void SetInputStatus(bool status)
+        public void SetInputStatus(bool allowed)
         {
-            dtpCurrentTime.Enabled = status;
-            cbxTime.Enabled = status;
-            cbxNumber.Enabled = status;
-            btnAdd.Enabled = status;
-            btnReset.Enabled = status;
-            btnSub.Enabled = status;
+            dtpCurrentTime.Enabled = allowed;
+            cbxTime.Enabled = allowed;
+            cbxNumber.Enabled = allowed;
+            btnAdd.Enabled = allowed;
+            btnReset.Enabled = allowed;
+            btnSub.Enabled = allowed;
+
+            rdbSimulation.Checked = allowed;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
