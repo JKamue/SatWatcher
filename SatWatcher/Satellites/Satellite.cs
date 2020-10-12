@@ -32,8 +32,8 @@ namespace SatWatcher.Satellites
 
         public void DrawLocation(Graphics g, CoordinateCalculator cCalc)
         {
-            Sgp4Data position = SatFunctions.getSatPositionAtTime(Tle, new EpochTime(DateTime.Now), Sgp4.wgsConstant.WGS_84);
-            var point = SatFunctions.calcSatSubPoint(new EpochTime(DateTime.Now), position, Sgp4.wgsConstant.WGS_84);
+            Sgp4Data position = SatFunctions.getSatPositionAtTime(Tle, new EpochTime(TimeKeeper.Now()), Sgp4.wgsConstant.WGS_84);
+            var point = SatFunctions.calcSatSubPoint(new EpochTime(TimeKeeper.Now()), position, Sgp4.wgsConstant.WGS_84);
             var mappedPoint = cCalc.MapPoint(new PointF((float)point.getLongitude(), (float)point.getLatitude()));
             mappedPoint = new PointF((float)Math.Round(mappedPoint.X), (float)Math.Round(mappedPoint.Y));
 
@@ -44,8 +44,8 @@ namespace SatWatcher.Satellites
 
         private List<Sgp4Data> CalculatePositionList(int start, int end)
         {
-            var startTime = new EpochTime(DateTime.Now.AddMinutes(start));
-            var endTime = new EpochTime(DateTime.Now.AddMinutes(end));
+            var startTime = new EpochTime(TimeKeeper.Now().AddMinutes(start));
+            var endTime = new EpochTime(TimeKeeper.Now().AddMinutes(end));
 
             var sgp4Propagator = new Sgp4(Tle, Sgp4.wgsConstant.WGS_84);
             sgp4Propagator.runSgp4Cal(startTime, endTime, 0.01);
@@ -54,8 +54,8 @@ namespace SatWatcher.Satellites
 
         public void DrawLine(Graphics g, CoordinateCalculator cCalc)
         {
-            DrawLineSet(new EpochTime(DateTime.Now.AddMinutes(-30)), CalculatePositionList(-30, 0), Color.Red, cCalc, g);
-            DrawLineSet(new EpochTime(DateTime.Now), CalculatePositionList(0, 90), Color.Yellow, cCalc, g);
+            DrawLineSet(new EpochTime(TimeKeeper.Now().AddMinutes(-30)), CalculatePositionList(-30, 0), Color.Red, cCalc, g);
+            DrawLineSet(new EpochTime(TimeKeeper.Now()), CalculatePositionList(0, 90), Color.Yellow, cCalc, g);
         }
 
         private void DrawLineSet(EpochTime startTime, List<One_Sgp4.Sgp4Data> data, Color c, CoordinateCalculator cCalc, Graphics g)

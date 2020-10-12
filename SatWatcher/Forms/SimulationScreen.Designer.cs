@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.selectSatellitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.predictPassesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timeTravelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlSimulation.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +53,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectSatellitesToolStripMenuItem,
-            this.predictPassesToolStripMenuItem});
+            this.predictPassesToolStripMenuItem,
+            this.timeTravelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
@@ -72,6 +74,13 @@
             this.predictPassesToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.predictPassesToolStripMenuItem.Text = "Predict Passes";
             this.predictPassesToolStripMenuItem.Click += new System.EventHandler(this.predictPassesToolStripMenuItem_Click);
+            // 
+            // timeTravelToolStripMenuItem
+            // 
+            this.timeTravelToolStripMenuItem.Name = "timeTravelToolStripMenuItem";
+            this.timeTravelToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
+            this.timeTravelToolStripMenuItem.Text = "Time Travel";
+            this.timeTravelToolStripMenuItem.Click += new System.EventHandler(this.timeTravelToolStripMenuItem_Click);
             // 
             // SimulationScreen
             // 
@@ -98,5 +107,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem selectSatellitesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem predictPassesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem timeTravelToolStripMenuItem;
     }
 }

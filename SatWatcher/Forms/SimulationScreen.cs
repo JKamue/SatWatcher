@@ -19,6 +19,7 @@ namespace SatWatcher.Forms
 
         private SatChooser SatChooser;
         private PassCalculator PassCalculator;
+        private TimeTravel TimeTravel;
 
         public SimulationScreen()
         {
@@ -34,6 +35,7 @@ namespace SatWatcher.Forms
 
             Controller = new BufferedScreenController(pnlSimulation, satController, database);
             SatChooser = new SatChooser(satController, database);
+            TimeTravel = new TimeTravel();
             PassCalculator = new PassCalculator(satController, database);
         }
 
@@ -47,6 +49,12 @@ namespace SatWatcher.Forms
         {
             PassCalculator.Show();
             PassCalculator.BringToFront();
+        }
+
+        private void timeTravelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimeTravel.Show();
+            TimeTravel.BringToFront();
         }
     }
 }
