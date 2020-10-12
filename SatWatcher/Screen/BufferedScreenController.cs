@@ -90,10 +90,8 @@ namespace SatWatcher.Screen
                 var start = corCalc.MapPoint(new PointF(-180, i));
                 var end = corCalc.MapPoint(new PointF(180, i));
 
-                var width = (i == 0) ? 2 : 1;
-
                 g.DrawString($"{i}°", font, new SolidBrush(Color.White), start);
-                g.DrawLine(new Pen(Color.LightGray, width), start, end);
+                g.DrawLine(new Pen(Color.LightGray, 1), start, end);
             }
 
             for (var i = -180; i <= 180; i += 30)
@@ -101,11 +99,8 @@ namespace SatWatcher.Screen
                 var start = corCalc.MapPoint(new PointF(i, 90));
                 var end = corCalc.MapPoint(new PointF(i, -90));
 
-
-                var width = (i == 0) ? 2 : 1;
-
                 g.DrawString($"{i}°", font, new SolidBrush(Color.White), new PointF(start.X, start.Y + 20));
-                g.DrawLine(new Pen(Color.LightGray, width), start, end);
+                g.DrawLine(new Pen(Color.LightGray, 1), start, end);
             }
         }
     }
