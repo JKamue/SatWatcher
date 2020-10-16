@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using One_Sgp4;
 using SatWatcher.Calculators;
 using SatWatcher.Data;
+using SatWatcher.Data.Dtos;
 using SatWatcher.Satellites;
 
 namespace SatWatcher.Forms
@@ -53,7 +54,7 @@ namespace SatWatcher.Forms
         private void btnCalc_Click(object sender, EventArgs e)
         {
             var location = _db.GetPosition();
-            var home = new Coordinate(location.lat, location.lng);
+            var home = new Coordinate(Decimal.ToDouble(location.lat), Decimal.ToDouble(location.lng));
 
             lviewPasses.Items.Clear();
             List<SatPass> satPasses = new List<SatPass>();
@@ -80,6 +81,12 @@ namespace SatWatcher.Forms
                 var itm = new ListViewItem(arr);
                 lviewPasses.Items.Add(itm);
             }
+
+            var settings = new PassSettingDto(location, dtpStart.Value, (int) nbxSpanDays.Value, (double) nbxMinElev.Value,
+                _satellites.SelectedSatellites.Select(s => s.Name).ToArray());
+
+            var pdfGenerator = new PassPdf();
+            pdfGenerator.GetPassPdf("asdf.pdf", settings);
         }
 
         private void PassSelected(object sender, EventArgs e)
@@ -93,8 +100,8 @@ namespace SatWatcher.Forms
 
         private void btnStoreLocation_Click(object sender, EventArgs e)
         {
-            var lat = (long) nbxLocLat.Value;
-            var lng = (long) nbxLocLng.Value;
+            var lat = nbxLocLat.Value;
+            var lng = nbxLocLng.Value;
             _db.SetLocation(new SqLiteDb.Location(lat, lng));
         }
 
