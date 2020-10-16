@@ -39,7 +39,7 @@ namespace SatWatcher.Data
                 "CREATE TABLE \"satellites\" (\r\n\t\"id\"\tINTEGER NOT NULL UNIQUE,\r\n\t\"name\"\tTEXT NOT NULL,\r\n\t\"line1\"\tTEXT NOT NULL,\r\n\t\"line2\"\tTEXT NOT NULL,\r\n\tPRIMARY KEY(\"id\")\r\n);");
 
             tmpConnection.Execute(
-                "CREATE TABLE \"location\" (\r\n\t\"lat\"\tINTEGER NOT NULL,\r\n\t\"lng\"\tINTEGER NOT NULL,\r\n\tPRIMARY KEY(\"lat\")\r\n);");
+                "CREATE TABLE \"location\" (\r\n\t\"lat\"\tREAL NOT NULL,\r\n\t\"lng\"\tREAL NOT NULL,\r\n\tPRIMARY KEY(\"lat\")\r\n);");
 
             tmpConnection.Execute("INSERT INTO location (lat, lng) VALUES (0,0)");
 
@@ -83,9 +83,9 @@ namespace SatWatcher.Data
 
         public struct Location
         {
-            public long lat;
-            public long lng;
-            public Location(long lat, long lng)
+            public decimal lat;
+            public decimal lng;
+            public Location(decimal lat, decimal lng)
             {
                 this.lat = lat;
                 this.lng = lng;

@@ -75,7 +75,7 @@ namespace SatWatcher.Screen
         private void DrawPosition(CoordinateCalculator corCalc, Graphics g)
         {
             var point = _db.GetPosition();
-            var projectd = corCalc.MapPoint(new PointF(point.lng, point.lat));
+            var projectd = corCalc.MapPoint(new PointF(Decimal.ToSingle(point.lng), Decimal.ToSingle(point.lat)));
 
             g.DrawLine(new Pen(Color.Red, 2), projectd.X - 6, projectd.Y, projectd.X + 6, projectd.Y);
             g.DrawLine(new Pen(Color.Red, 2), projectd.X, projectd.Y - 6, projectd.X, projectd.Y + 6);
