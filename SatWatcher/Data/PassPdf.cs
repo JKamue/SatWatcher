@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -20,6 +21,7 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Annotations;
 using SatWatcher.Data.Dtos;
+using SatWatcher.Forms;
 
 namespace SatWatcher.Data
 {
@@ -29,9 +31,11 @@ namespace SatWatcher.Data
         private Table table;
         private TextFrame addressFrame;
         private PassSettingDto settings;
-        public Document GetPassPdf(string filename, PassSettingDto settings)
+        private List<PassCalculator.SatPass> passes;
+        public Document GetPassPdf(string filename, PassSettingDto settings, List<PassCalculator.SatPass> passes)
         {
             this.settings = settings;
+            this.passes = passes;
 
             // Create a new MigraDoc document
             this.document = new Document();
@@ -42,6 +46,8 @@ namespace SatWatcher.Data
             DefineStyles();
 
             CreatePage();
+
+            AddTableData();
 
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);
             renderer.Document = document;
@@ -137,8 +143,121 @@ namespace SatWatcher.Data
             paragraph.Format.Alignment = ParagraphAlignment.Left;
             paragraph.AddFormattedText($"\tTimeframe: \t\t{settings.Start} - {settings.Start.AddDays(settings.Days)}\n", new Font("Arial", 12));
             paragraph.AddFormattedText($"\tMin. Elevation: \t{settings.MinElevtation}°\n", new Font("Arial", 12));
-            paragraph.AddFormattedText($"\tSelected Satellites: \t{string.Join(", ", settings.SelectedSatellites)}\n", new Font("Arial", 12));
+            paragraph.AddFormattedText($"\tSelected Satellites: \t{string.Join(", ", settings.SelectedSatellites)}\n\n\n", new Font("Arial", 12));
 
+            // Add table
+            table = section.AddTable();
+            table.Borders.Width = 0.5;
+            table.Style = "Table";
+
+            // Add column
+            Column column = this.table.AddColumn("1.75cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("2.2cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.75cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.15cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.25cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.75cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.15cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.25cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.75cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.15cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            column = this.table.AddColumn("1.25cm");
+            column.Format.Alignment = ParagraphAlignment.Center;
+
+            // Add Header row
+            Row row = table.AddRow();
+            row.HeadingFormat = true;
+            row.Format.Alignment = ParagraphAlignment.Center;
+            row.Format.Font.Bold = true;
+            row.Cells[0].AddParagraph("Date");
+            row.Cells[0].MergeDown = 1;
+            row.Cells[0].VerticalAlignment = VerticalAlignment.Bottom;
+            row.Cells[1].AddParagraph("Satellite");
+            row.Cells[1].VerticalAlignment = VerticalAlignment.Bottom;
+            row.Cells[1].MergeDown = 1;
+            row.Cells[2].AddParagraph("Start");
+            row.Cells[2].MergeRight = 2;
+            row.Cells[5].AddParagraph("Max. Elev");
+            row.Cells[5].MergeRight = 2;
+            row.Cells[8].AddParagraph("End");
+            row.Cells[8].MergeRight = 2;
+
+            // Add clarification row
+            row = table.AddRow();
+            row.HeadingFormat = true;
+            row.Format.Alignment = ParagraphAlignment.Center;
+            row.Format.Font.Bold = true;
+            row.Cells[2].AddParagraph("Time");
+            row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[3].AddParagraph("Elev.");
+            row.Cells[3].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[4].AddParagraph("Azim.");
+            row.Cells[4].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[5].AddParagraph("Time");
+            row.Cells[5].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[6].AddParagraph("Elev.");
+            row.Cells[6].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[7].AddParagraph("Azim.");
+            row.Cells[7].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[8].AddParagraph("Time");
+            row.Cells[8].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[9].AddParagraph("Elev.");
+            row.Cells[9].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[10].AddParagraph("Azim.");
+            row.Cells[10].Format.Alignment = ParagraphAlignment.Center;
+        }
+
+        private void AddTableData()
+        {
+            var font = new Font("Arial", 10);
+            foreach (var pass in passes)
+            {
+                var row = table.AddRow();
+                var paragraph = row.Cells[0].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getStartEpoch().toDateTime().ToString("yy-M-d"), font);
+                paragraph = row.Cells[1].AddParagraph();
+                paragraph.AddFormattedText(pass.Name, font);
+                paragraph = row.Cells[2].AddParagraph();
+                row.Cells[2].Shading.Color = Color.FromArgb(70, 0, 255, 0);
+                paragraph.AddFormattedText(pass.Pass.getPassDetailsAtStart().time.toDateTime().ToString("T"), font);
+                paragraph = row.Cells[3].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailsAtStart().elevation.ToString("F1"), font);
+                paragraph = row.Cells[4].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailsAtStart().azimuth.ToString("F1"), font);
+                paragraph = row.Cells[5].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailOfMaxElevation().time.toDateTime().ToString("T"), font);
+                paragraph = row.Cells[6].AddParagraph();
+                row.Cells[6].Shading.Color = Color.FromArgb(70, 255, 0, 0);
+                paragraph.AddFormattedText(pass.Pass.getPassDetailOfMaxElevation().elevation.ToString("F1"), font);
+                paragraph = row.Cells[7].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailOfMaxElevation().azimuth.ToString("F1"), font);
+                paragraph = row.Cells[8].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailsAtEnd().time.toDateTime().ToString("T"), font);
+                paragraph = row.Cells[9].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailsAtEnd().elevation.ToString("F1"), font);
+                paragraph = row.Cells[10].AddParagraph();
+                paragraph.AddFormattedText(pass.Pass.getPassDetailsAtEnd().azimuth.ToString("F1"), font);
+            }
         }
 
         private static void DrawImage(XGraphics gfx, int x, int y, int width, int height)

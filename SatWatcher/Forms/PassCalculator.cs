@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using One_Sgp4;
 using SatWatcher.Calculators;
 using SatWatcher.Data;
 using SatWatcher.Data.Dtos;
+using SatWatcher.Properties;
 using SatWatcher.Satellites;
 
 namespace SatWatcher.Forms
@@ -19,6 +21,9 @@ namespace SatWatcher.Forms
     {
         private readonly SatellitesController _satellites;
         private readonly SqLiteDb _db;
+
+        private PassSettingDto lastSettings;
+        private List<SatPass> lastPasses;
 
         public PassCalculator(SatellitesController satellites, SqLiteDb database)
         {
@@ -85,8 +90,23 @@ namespace SatWatcher.Forms
             var settings = new PassSettingDto(location, dtpStart.Value, (int) nbxSpanDays.Value, (double) nbxMinElev.Value,
                 _satellites.SelectedSatellites.Select(s => s.Name).ToArray());
 
-            var pdfGenerator = new PassPdf();
-            pdfGenerator.GetPassPdf("asdf.pdf", settings);
+            btnGenPdf.Enabled = true;
+
+            lastSettings = settings;
+            lastPasses = satPasses;
+        }
+
+        private void btnGenPdf_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "PDF Document|*.pdf";
+            saveFileDialog1.Title = "Save the pass list";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var pdfGenerator = new PassPdf();
+                pdfGenerator.GetPassPdf(saveFileDialog1.FileName, lastSettings, lastPasses);
+            }
         }
 
         private void PassSelected(object sender, EventArgs e)
@@ -105,7 +125,7 @@ namespace SatWatcher.Forms
             _db.SetLocation(new SqLiteDb.Location(lat, lng));
         }
 
-        private struct SatPass
+        public struct SatPass
         {
             public readonly string Name;
             public readonly Pass Pass;
@@ -116,5 +136,6 @@ namespace SatWatcher.Forms
                 Pass = pass;
             }
         }
+
     }
 }
