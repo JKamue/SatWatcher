@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.lviewPasses = new System.Windows.Forms.ListView();
+            this.btnGenPdf = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbxLocLng)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbxLocLat)).BeginInit();
@@ -58,7 +59,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.nbxLocLng);
             this.groupBox1.Controls.Add(this.nbxLocLat);
-            this.groupBox1.Location = new System.Drawing.Point(12, 444);
+            this.groupBox1.Location = new System.Drawing.Point(12, 475);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(420, 100);
             this.groupBox1.TabIndex = 0;
@@ -147,9 +148,9 @@
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(285, 73);
+            this.btnCalc.Location = new System.Drawing.Point(277, 76);
             this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(75, 31);
+            this.btnCalc.Size = new System.Drawing.Size(83, 31);
             this.btnCalc.TabIndex = 6;
             this.btnCalc.Text = "Calculate";
             this.btnCalc.UseVisualStyleBackColor = true;
@@ -237,11 +238,23 @@
             this.lviewPasses.TabIndex = 2;
             this.lviewPasses.UseCompatibleStateImageBehavior = false;
             // 
+            // btnGenPdf
+            // 
+            this.btnGenPdf.Enabled = false;
+            this.btnGenPdf.Location = new System.Drawing.Point(308, 444);
+            this.btnGenPdf.Name = "btnGenPdf";
+            this.btnGenPdf.Size = new System.Drawing.Size(124, 25);
+            this.btnGenPdf.TabIndex = 5;
+            this.btnGenPdf.Text = "Generate PDF";
+            this.btnGenPdf.UseVisualStyleBackColor = true;
+            this.btnGenPdf.Click += new System.EventHandler(this.btnGenPdf_Click);
+            // 
             // PassCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 559);
+            this.ClientSize = new System.Drawing.Size(444, 585);
+            this.Controls.Add(this.btnGenPdf);
             this.Controls.Add(this.lviewPasses);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -277,5 +290,6 @@
         private System.Windows.Forms.NumericUpDown nbxLocLat;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.ListView lviewPasses;
+        private System.Windows.Forms.Button btnGenPdf;
     }
 }
