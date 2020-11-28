@@ -30,7 +30,8 @@ namespace SatWatcher.Forms
             foreach (var sat in database.GetAllSatellites())
             {
                 var newTles = TLEApi.GetCurrentTleData(sat);
-                database.UpdateTle(newTles);
+                if (newTles.IsSuccess)
+                    database.UpdateTle(newTles.Value);
             }
 
             Controller = new BufferedScreenController(pnlSimulation, satController, database);

@@ -94,7 +94,13 @@ namespace SatWatcher.Forms
         private void btnAddSat_Click(object sender, EventArgs e)
         {
             var sat = TLEApi.GetSatellite((long) nbxNorad.Value);
-            Db.AddSatellite(sat);
+            if (sat.IsFailure)
+            {
+                MessageBox.Show(sat.Error, "Daten nicht empfangen");
+                return;
+            }
+            
+            Db.AddSatellite(sat.Value);
             UpdateAllLists();
         }
     }

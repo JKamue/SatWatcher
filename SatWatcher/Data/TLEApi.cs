@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpFunctionalExtensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SatWatcher.Satellites;
@@ -13,21 +14,27 @@ namespace SatWatcher.Data
 {
     class TLEApi
     {
-        public static Satellite GetSatellite(long id)
+        public static Result<Satellite> GetSatellite(long id)
         {
             string url = "https://data.ivanstanojevic.me/api/tle?search=" + id;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
+            string response;
 
-            var webResponse = request.GetResponse();
-            var webStream = webResponse.GetResponseStream();
-            var responseReader = new StreamReader(webStream);
-            var response = responseReader.ReadToEnd();
+            try
+            {
+                var webResponse = request.GetResponse();
+                var webStream = webResponse.GetResponseStream();
+                var responseReader = new StreamReader(webStream);
+                response = responseReader.ReadToEnd();
+                responseReader.Close();
+            }
+            catch (WebException e)
+            {
+                return Result.Failure<Satellite>(e.Message);
+            }
 
             var tleResponse = JObject.Parse(response);
-            responseReader.Close();
-
-
             var results = tleResponse["member"]?.Children().ToList().First();
             return new Satellite(
                 GetValue<long>(results, "satelliteId"),
@@ -37,13 +44,17 @@ namespace SatWatcher.Data
             );
         }
 
-        public static TleLines GetCurrentTleData(Satellite sat)
+        public static Result<TleLines> GetCurrentTleData(Satellite sat)
         {
             var satellite = GetSatellite(sat.ID);
+
+            if (satellite.IsFailure)
+                return Result.Failure<TleLines>(satellite.Error);
+
             return new TleLines(
-                satellite.ID,
-                satellite.TleLine1,
-                satellite.TleLine2
+                satellite.Value.ID,
+                satellite.Value.TleLine1,
+                satellite.Value.TleLine2
             );
         }
 
