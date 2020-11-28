@@ -26,6 +26,7 @@ namespace SatWatcher.Forms
             Db = db;
             FormClosing += SatChooserHider;
             UpdateAllLists();
+            lbxStoredSats.DoubleClick += btnAddToShown_Click;
         }
 
         private void UpdateAllLists()
