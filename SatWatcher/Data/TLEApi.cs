@@ -35,12 +35,19 @@ namespace SatWatcher.Data
             }
 
             var tleResponse = JObject.Parse(response);
-            var results = tleResponse["member"]?.Children().ToList().First();
+            var results = tleResponse["member"]?.Children().ToList();
+
+            if (results?.Count != 1)
+            {
+                return Result.Failure<Satellite>($"{results.Count} satellites with this number were found");
+            }
+
+            var result = results.First();
             return new Satellite(
-                GetValue<long>(results, "satelliteId"),
-                GetValue<string>(results, "name"),
-                GetValue<string>(results, "line1"),
-                GetValue<string>(results, "line2")
+                GetValue<long>(result, "satelliteId"),
+                GetValue<string>(result, "name"),
+                GetValue<string>(result, "line1"),
+                GetValue<string>(result, "line2")
             );
         }
 
