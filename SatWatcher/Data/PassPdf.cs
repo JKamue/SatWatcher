@@ -1,25 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.XPath;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
-using One_Sgp4;
 using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.Annotations;
 using SatWatcher.Data.Dtos;
 using SatWatcher.Forms;
 
